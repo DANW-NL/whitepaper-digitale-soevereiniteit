@@ -74,6 +74,22 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
 
         .text-center { text-align: center; }
 
+        ul, ol {
+          margin-top: 0.5em;
+          margin-bottom: 1em;
+          padding-left: 1.5em; /* Controls left indentation */
+        }
+
+        li {
+          margin-bottom: 0.3em; /* Adds breathing room between items */
+          line-height: 1.5;
+        }
+
+        /* Prevents page breaks from cutting an individual bullet point in half */
+        li {
+          page-break-inside: avoid;
+        }
+
         /* Tables & formatting */
         table { border-collapse: collapse; width: 100%; margin: 1em 0; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
