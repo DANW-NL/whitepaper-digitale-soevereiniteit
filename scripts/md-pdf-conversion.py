@@ -3,147 +3,234 @@ from pathlib import Path
 import markdown
 from jinja2 import Template
 from playwright.sync_api import sync_playwright
+import mimetypes
+import re
 
 def img_to_base64(image_path: Path) -> str:
     with open(image_path, "rb") as f:
         return f"data:image/png;base64,{base64.b64encode(f.read()).decode('utf-8')}"
 
+def embed_images(html: str) -> str:
+    def repl(match):
+        src = match.group(1)
+        if not src.startswith(("data:", "http://", "https://")):
+            img_path = Path(src)
+            if img_path.is_file():
+                mime, _ = mimetypes.guess_type(str(img_path))
+                mime = mime or "image/png"
+                b64 = base64.b64encode(img_path.read_bytes()).decode("utf-8")
+                return f'src="data:{mime};base64,{b64}"'
+        return match.group(0)
+
+    return re.sub(r'src=["\']([^"\']+)["\']', repl, html)
+
 def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, logo_path: str):
-    # 1. Merge Markdown files with explicit page breaks between them
+    # 1. Merge Markdown
     merged_md_parts = []
     for idx, filepath in enumerate(file_list):
         content = Path(filepath).read_text(encoding="utf-8").strip()
-        # Add a page break marker before each chapter, except the very first one
         if idx > 0:
             merged_md_parts.append('\n\n<div class="page-break"></div>\n\n')
         merged_md_parts.append(content)
 
     full_markdown = "\n\n".join(merged_md_parts)
 
-    # 2. Configure the Markdown parser with TOC support
+    # 2. Markdown to HTML
     md = markdown.Markdown(
-        extensions=[
-            "extra",
-            "toc",
-            "codehilite"
-        ],
+        extensions=["extra", "toc", "codehilite", "sane_lists"],
         extension_configs={
             "toc": {
                 "permalink": False,
                 "title": "Inhoudsopgave",
-                "toc_depth": "1-2"  # Focuses on H2 and H3; excludes document title H1 if needed
+                "toc_depth": "1-2",
+                "slugify": lambda value, sep: "sec-" + markdown.extensions.toc.slugify(value, sep)
             }
         }
     )
+    body_html = embed_images(md.convert(full_markdown))
+    toc_html = md.toc
+    logo_base64 = img_to_base64(Path(logo_path))
 
-    body_html = md.convert(full_markdown)
-    toc_html = md.toc  # Generated TOC with functioning anchor links
-
-    # 3. Layout Template
+    # 3. Layout Template with Paged.js & CSS Paged Media
     html_template = """
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="utf-8">
-      <style>
-        body { font-family: "Segoe UI", Helvetica, Arial, sans-serif; font-size: 11pt; line-height: 1.6; color: #222; }
-        h1, h2, h3 { color: #003366; }
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <base href="{{ base_href }}">
+          <!-- Polyfill for CSS Paged Media -->
+          <script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
+          <style>
+          /* Document Setup & Page Margins */
+          @page {
+            size: A4;
+            margin-top: 2.5cm;
+            margin-bottom: 2.5cm;
+            margin-left: 2cm;
+            margin-right: 2cm;
 
-        /* Page break utilities */
-        .page-break { page-break-before: always; }
+            /* Running Header */
+            @top-left {
+              content: "";
+              background-image: url("{{ logo }}");
+              background-repeat: no-repeat;
+              background-position: left center;
+              background-size: contain;
+              height: 45px;
+              margin-top: 20px;
+            }
 
-        /* Table of Contents styling */
-        .toc {
-          background: #fdfdfd;
-          border: 1px solid #e2e8f0;
-          padding: 1.5rem 2rem;
-          margin-bottom: 2rem;
-          border-radius: 4px;
-        }
-        .toc .toctitle {
-          font-size: 1.3rem;
-          font-weight: bold;
-          margin-bottom: 1rem;
-          color: #003366;
-        }
-        .toc ul { list-style-type: none; padding-left: 1.2rem; margin: 0; }
-        .toc > ul { padding-left: 0; }
-        .toc li { margin: 0.3rem 0; }
-        .toc a { text-decoration: none; color: #1a56db; }
-        .toc a:hover { text-decoration: underline; }
+            /* Running Footer */
+            @bottom-left {
+              content: "{{ doc_title }}";
+              font-family: "Segoe UI", sans-serif;
+              font-size: 8pt;
+              color: #666;
+              border-top: 1px solid #ddd;
+              vertical-align: top;
+              padding-top: 4px;
+            }
+            @bottom-right {
+              content: "Pagina " counter(page) " van " counter(pages);
+              font-family: "Segoe UI", sans-serif;
+              font-size: 8pt;
+              color: #666;
+              border-top: 1px solid #ddd;
+              vertical-align: top;
+              padding-top: 4px;
+            }
+          }
 
-        .text-center { text-align: center; }
+          body {
+            font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #222;
+          }
 
-        ul, ol {
-          margin-top: 0.5em;
-          margin-bottom: 1em;
-          padding-left: 1.5em; /* Controls left indentation */
-        }
+          h1, h2, h3 { color: #003366; }
+          .page-break { break-before: page; }
 
-        li {
-          margin-bottom: 0.3em; /* Adds breathing room between items */
-          line-height: 1.5;
-        }
+          .text-center { text-align: center; }
 
-        /* Prevents page breaks from cutting an individual bullet point in half */
-        li {
-          page-break-inside: avoid;
-        }
+          .call-out {
+            text-align: center;
+            color: #003366;
+            margin-left: 3rem;
+            margin-right: 3rem;
+            border-top: 1px solid #003366;
+            border-bottom: 1px solid #003366;
+          }
 
-        /* Tables & formatting */
-        table { border-collapse: collapse; width: 100%; margin: 1em 0; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f8fafc; }
-      </style>
-    </head>
-    <body>
-      <!-- Place TOC at the desired position (e.g., right after an introduction or on a dedicated page) -->
-      {{ toc }}
-      <div class="page-break"></div>
+          img {
+            width: 100%;
+          }
 
-      {{ body }}
-    </body>
-    </html>
-    """
+          /* --- Inhoudsopgave (TOC) with Page Numbers & Dot Leaders --- */
+          .toc {
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+          }
+          .toc .toctitle {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #003366;
+            margin-bottom: 1.2rem;
+            display: block;
+          }
+          .toc ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+          }
+          .toc ul ul {
+            padding-left: 1.5rem; /* Indentation for subheadings */
+          }
+          .toc li {
+            margin: 0.35rem 0;
+          }
+          .toc a {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: baseline;
+          }
+          /* CSS Dot Leaders */
+          .toc a::after {
+            content: target-counter(attr(href), page);
+            margin-left: auto;
+            font-weight: normal;
+            font-variant-numeric: tabular-nums;
+          }
+          .toc a::before {
+            content: "";
+            order: 1;
+            flex: 1;
+            border-bottom: 1px dotted #999;
+            margin: 0 0.5em;
+          }
+          .toc a span, .toc a {
+            order: 0;
+          }
+          .toc a::after {
+            order: 2;
+          }
 
-    full_html = Template(html_template).render(toc=toc_html, body=body_html)
+          /* Content lists */
+          ul, ol { margin-top: 0.5em; margin-bottom: 1em; padding-left: 1.5em; }
+          li { margin-bottom: 0.3em; break-inside: avoid; }
 
-    # 4. Running Header & Footer
-    logo_data = img_to_base64(Path(logo_path))
-    header_template = f"""
-    <div style="font-size: 9pt; width: 100%; display: flex; justify-content: flex-begin; padding: 0 1.5cm; align-items: center;">
-        <img src="{logo_data}" style="height: 45px; object-fit: contain;" />
-    </div>
-    """
-    footer_template = f"""
-    <div style="font-size: 8pt; width: 100%; display: flex; justify-content: space-between; padding: 0 1.5cm; color: #666; margin-top: 5px;">
-        <span>{doc_title}</span>
-        <span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span>
-    </div>
-    """
+          /* Tables & formatting */
+          table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+          th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+          th { background-color: #f8fafc; }
+        </style>
+        </head>
+        <body>
+          {{ toc }}
+          <div class="page-break"></div>
+          {{ body }}
+        </body>
+      </html>
+      """
 
-    # 5. Playwright Print Execution
+    base_href = Path.cwd().resolve().as_uri() + "/"
+
+    full_html = Template(html_template).render(
+        toc=toc_html,
+        body=body_html,
+        doc_title=doc_title,
+        logo=logo_base64,
+        base_href=base_href
+    )
+
+    # 4. Render with Playwright
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+        browser = p.chromium.launch(args=["--allow-file-access-from-files"])
         page = browser.new_page()
+
+
+        # Load content and wait for Paged.js to finish rendering pages
         page.set_content(full_html, wait_until="networkidle")
+        page.wait_for_selector(".pagedjs_pages")  # Indicator that Paged.js layout is ready
+
         page.pdf(
             path=output_pdf,
             format="A4",
-            display_header_footer=True,
-            header_template=header_template,
-            footer_template=footer_template,
-            margin={"top": "2.5cm", "bottom": "2.5cm", "left": "2cm", "right": "2cm"},
-            print_background=True
+            print_background=True,
+            margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}  # Margins managed by @page
         )
         browser.close()
-
 
 if __name__ == '__main__':
     # Explicit file order defines the document structure
     chapter_files = [
         "docs/01-management_samenvatting.md",
-        "docs/02-aanleiding_en_context.md"
+        "docs/02-aanleiding_en_context.md",
+        "docs/03-Begrippenkader_en_afbakening.md",
+        "docs/04-architectuurvraagstuk.md",
+        "docs/05-governance-en-architectuurprincipes.md",
+        "docs/06-managen-van-systeemrisicos.md"
     ]
 
     compile_whitepaper(
