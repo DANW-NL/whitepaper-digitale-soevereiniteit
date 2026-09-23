@@ -1,4 +1,4 @@
-# 4 Wat maakt digitale soevereiniteit een architectuurvraagstuk
+# 4 - Wat maakt digitale soevereiniteit een architectuurvraagstuk
 
 ## 4.1 Ontwerpkeuzes kunnen essentieel zijn voor soevereiniteit
 Het handelingsperspectief van een organisatie voor de toekomst wordt in hoge mate mede bepaald door essentiële architectuurkeuzes uit het verleden, omdat deze keuzen in de praktijk zelden makkelijk te wijzigen zijn: waar data staat, wie toegang heeft, wie sleutels beheert, hoe systemen gekoppeld zijn, van welke leveranciers, platformen en diensten gebruik wordt gemaakt.

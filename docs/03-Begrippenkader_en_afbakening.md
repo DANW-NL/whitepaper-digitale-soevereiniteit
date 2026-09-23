@@ -1,4 +1,4 @@
-# 3 Begrippenkader en afbakening
+# 3 - Begrippenkader en afbakening
 
 Van oudsher gaat autonomie over het kunnen nemen van besluiten, en soevereiniteit over het juridische en bestuurlijke gezag om dat te doen.
 

@@ -1,4 +1,4 @@
-# 5 Governance- en architectuurprincipes
+# 5 - Governance- en architectuurprincipes
 Voor architecten kunnen principes een middel zijn om het gesprek over digitale soevereiniteit concreet te maken. Zij helpen om abstracte ambities te vertalen naar ontwerpkeuzes en om bestuurlijke discussies te verbinden met de technische en organisatorische realiteit.
 
 De principes in dit hoofdstuk zijn bedoeld als richtinggevend kader voor architecten en besluitvormers. Ze zijn zo opgesteld, dat ze iedere organisatie ruimte laten voor proportionele concretisering naar architectuurkeuzes, passend bij de context van de eigen organisatie, de mate waarin waardestromen bedrijfskritisch zijn, de dataclassificatie, de afhankelijkheden in de keten en de risicotolerantie.

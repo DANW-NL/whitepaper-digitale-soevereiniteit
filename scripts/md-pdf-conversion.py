@@ -42,7 +42,7 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
             "toc": {
                 "permalink": False,
                 "title": "Inhoudsopgave",
-                "toc_depth": "1-2",
+                "toc_depth": "1",
                 "slugify": lambda value, sep: "sec-" + markdown.extensions.toc.slugify(value, sep)
             }
         }
@@ -58,8 +58,28 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
         <head>
           <meta charset="utf-8">
           <base href="{{ base_href }}">
+          <script>
+            window.pagedjsRendered = false;
+            window.PagedConfig = {
+              auto: false, // We'll trigger it manually or let it run
+              after: () => {
+                window.pagedjsRendered = true;
+              }
+            };
+          </script>
           <!-- Polyfill for CSS Paged Media -->
           <script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
+          <script>
+            class PagedReadyHandler extends Paged.Handler {
+              constructor(chunker, polisher, caller) {
+                super(chunker, polisher, caller);
+              }
+              afterRendered(pages) {
+                window.pagedjsRendered = true;
+              }
+            }
+            Paged.registerHandlers(PagedReadyHandler);
+          </script>
           <style>
           /* Document Setup & Page Margins */
           @page {
@@ -77,7 +97,8 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
               background-position: left center;
               background-size: contain;
               height: 45px;
-              margin-top: 20px;
+              margin-top: 15px;
+              margin-bottom: 15px;
             }
 
             /* Running Footer */
@@ -124,7 +145,12 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
 
           img {
             width: 100%;
+            display: block;
+            margin: auto;
           }
+
+          img.medium { width: 75%; }
+          img.small { width: 50%; }
 
           /* --- Inhoudsopgave (TOC) with Page Numbers & Dot Leaders --- */
           .toc {
@@ -182,7 +208,7 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
 
           /* Tables & formatting */
           table { border-collapse: collapse; width: 100%; margin: 1em 0; }
-          th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+          th, td { border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left; }
           th { background-color: #f8fafc; }
         </style>
         </head>
@@ -204,6 +230,9 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
         base_href=base_href
     )
 
+    with open("output/test.html", "w", encoding="utf-8") as file:
+        file.write(full_html)
+
     # 4. Render with Playwright
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--allow-file-access-from-files"])
@@ -212,7 +241,7 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
 
         # Load content and wait for Paged.js to finish rendering pages
         page.set_content(full_html, wait_until="networkidle")
-        page.wait_for_selector(".pagedjs_pages")  # Indicator that Paged.js layout is ready
+        page.wait_for_function("() => window.pagedjsRendered === true", timeout=60000)
 
         page.pdf(
             path=output_pdf,
@@ -230,7 +259,13 @@ if __name__ == '__main__':
         "docs/03-Begrippenkader_en_afbakening.md",
         "docs/04-architectuurvraagstuk.md",
         "docs/05-governance-en-architectuurprincipes.md",
-        "docs/06-managen-van-systeemrisicos.md"
+        "docs/06-managen-van-systeemrisicos.md",
+        "docs/07-hulpmiddelen_voor_de_architect.md",
+        "docs/08-governance_rollen_verantwoordelijkheden.md",
+        "docs/09-conclusies_en_aanbevelingen.md",
+        "docs/B1-gebruikte_bronnen_en_inspiratiebronnen.md",
+        "docs/B2-begrippenlijst.md",
+        "docs/B3-hulpmiddelen.md"
     ]
 
     compile_whitepaper(
