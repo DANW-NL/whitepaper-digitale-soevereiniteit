@@ -14,7 +14,7 @@ def embed_images(html: str) -> str:
     def repl(match):
         src = match.group(1)
         if not src.startswith(("data:", "http://", "https://")):
-            img_path = Path(src)
+            img_path = Path("docs/" + src)
             if img_path.is_file():
                 mime, _ = mimetypes.guess_type(str(img_path))
                 mime = mime or "image/png"

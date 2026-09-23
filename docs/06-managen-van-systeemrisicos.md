@@ -21,7 +21,7 @@ Dit sluit aan bij zowel ISO 27005 als TOGAF: TOGAF ADM heeft een voor architecte
 De onderstaande figuur geeft links de TOGAF Architecture Development Method en rechts de hoofdstappen van risicobeheersing conform ISO 27005. Bij de TOGAF ADM cyclus zijn de concrete architectuurtaken benoemd die ook relevant zijn voor risicobeheersing. In de risicobeheersingscyclus kunnen producten worden gebruikt die uit de architectuurcyclus kunnen volgen, of die in samenwerking worden opgesteld. Deze producten zijn hier ingetekend met de mogelijke, expliciete verbinding tussen beide cycli.
 
 Het volgende hoofdstuk en de bijlagen bij deze whitepaper bevatten omschrijvingen en sjablonen voor deze producten.
-![Figuur 1 - TOGAF risiciobeheersing volgens ISO 27005](docs/images/togaf-iso27005.png)
+![Figuur 1 - TOGAF risiciobeheersing volgens ISO 27005](images/togaf-iso27005.png)
 
 ISO 27005 is een raamwerk dat zich richt op risicobeheersing binnen het domein informatiebeveiliging. Net als TOGAF laat het ruimte voor nadere methodische invulling. Het proces en de daarin gebruikte producten zijn daarmee prima algemener toe te passen, inclusief voor het oplossen van digitale soevereiniteitsvraagstukken.
 
