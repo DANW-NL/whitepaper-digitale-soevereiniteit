@@ -14,7 +14,7 @@ def embed_images(html: str) -> str:
     def repl(match):
         src = match.group(1)
         if not src.startswith(("data:", "http://", "https://")):
-            img_path = Path("docs/" + src)
+            img_path = Path("paper/" + src)
             if img_path.is_file():
                 mime, _ = mimetypes.guess_type(str(img_path))
                 mime = mime or "image/png"
@@ -254,23 +254,23 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
 if __name__ == '__main__':
     # Explicit file order defines the document structure
     chapter_files = [
-        "docs/01-management_samenvatting.md",
-        "docs/02-aanleiding_en_context.md",
-        "docs/03-Begrippenkader_en_afbakening.md",
-        "docs/04-architectuurvraagstuk.md",
-        "docs/05-governance-en-architectuurprincipes.md",
-        "docs/06-managen-van-systeemrisicos.md",
-        "docs/07-hulpmiddelen_voor_de_architect.md",
-        "docs/08-governance_rollen_verantwoordelijkheden.md",
-        "docs/09-conclusies_en_aanbevelingen.md",
-        "docs/B1-gebruikte_bronnen_en_inspiratiebronnen.md",
-        "docs/B2-begrippenlijst.md",
-        "docs/B3-hulpmiddelen.md"
+        "paper/01-management_samenvatting.md",
+        "paper/02-aanleiding_en_context.md",
+        "paper/03-Begrippenkader_en_afbakening.md",
+        "paper/04-architectuurvraagstuk.md",
+        "paper/05-governance-en-architectuurprincipes.md",
+        "paper/06-managen-van-systeemrisicos.md",
+        "paper/07-hulpmiddelen_voor_de_architect.md",
+        "paper/08-governance_rollen_verantwoordelijkheden.md",
+        "paper/09-conclusies_en_aanbevelingen.md",
+        "paper/B1-gebruikte_bronnen_en_inspiratiebronnen.md",
+        "paper/B2-begrippenlijst.md",
+        "paper/B3-hulpmiddelen.md"
     ]
 
     compile_whitepaper(
         file_list=chapter_files,
         output_pdf="output/Een Enterprise Architectuur aanpak voor DIgitale Soevereiniteit.pdf",
         doc_title="Een Enterprise Architectuur aanpak voor DIgitale Soevereiniteit",
-        logo_path="docs/images/DANW-logo-CMYK-compleet-LA.png"
+        logo_path="paper/images/DANW-logo-CMYK-compleet-LA.png"
     )
