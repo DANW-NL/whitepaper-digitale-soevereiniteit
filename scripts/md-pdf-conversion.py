@@ -414,6 +414,7 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
 if __name__ == '__main__':
     # Explicit file order defines the document structure
     chapter_files = [
+        "paper/00-bijdragen.md",
         "paper/01-management_samenvatting.md",
         "paper/02-aanleiding_en_context.md",
         "paper/03-Begrippenkader_en_afbakening.md",
