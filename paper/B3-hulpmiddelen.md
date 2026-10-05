@@ -2,9 +2,20 @@
 
 Bij deze whitepaper horen de volgende hulpmiddelen:
 
-* Werkblad praktische instrumenten
-* Slides praktische instrumenten
+Werkblad praktische instrumenten, met daarin:
+
+* Dreigingenbibliotheek
+* Dreigingsactoren
+* Risk appetite model
+* Self assessment
+* Maatregelenbibliotheek
+* Maatregeleneffictiviteit
+
+Slides praktische instrumenten, met daarin:
+
 * Context Model Canvas
 * Bedrijfsimpact Canvas
-* Risicotolerantiemodel
-* Self-assessment/radar
+* Stakeholdermatrix
+* Risicovisualisatie
+
+Deze bestanden zijn op [GitHub](https://github.com/DANW-NL/whitepaper-digitale-soevereiniteit/tree/main/tools) te vinden.
