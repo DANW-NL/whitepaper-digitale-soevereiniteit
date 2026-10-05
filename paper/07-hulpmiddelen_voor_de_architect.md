@@ -69,7 +69,7 @@ Voor iedere organisatie zijn het vertrekpunt, de risico's en doelstellingen ande
 
 Waar externe partijen betrokken zijn, is bij de maatregelen steeds verondersteld dat ze gevestigd zullen zijn in de eigen, relevante jurisdictie (Nederland, de EU, of de niet-EU landen die wel tot de EER behoren). Is dat niet het geval, dan dient de effectiviteit van maatregelen zelf beoordeeld te worden.
 
-### 7.10.2 Maatregeleffectiviteit
+### 7.10.2 Maatregeleffectiviteit {: .page-break }
 Risicomethodieken hanteren normaliter een volgende maatregeltypering:
 
 * Vermijden (ISO 27005: “Avoid”): voortzetting van de bestaande situatie wordt niet geaccepteerd, er wordt een nieuwe situatie gecreëerd;

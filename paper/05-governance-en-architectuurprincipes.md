@@ -12,7 +12,7 @@ Voor digitale soevereiniteit is het daarom noodzakelijk om systematisch in kaart
 
 Architectuur moet deze afhankelijkheden niet alleen registreren, maar ook duiden. Een afhankelijkheid is pas bestuurbaar wanneer duidelijk is welke risico’s eraan verbonden zijn en of deze acceptabel, te mitigeren of onwenselijk zijn. Dit principe vormt daarmee het vertrekpunt voor alle verdere afwegingen in digitale soevereiniteit.
 
-## 5.2 Hanteer proportionaliteit op basis van kritische belangen
+## 5.2 Hanteer proportionaliteit op basis van kritische belangen{: .page-break }
 Niet elke voorziening hoeft maximaal soeverein te worden ingericht. Een generieke kantoorfunctie stelt andere eisen dan een bedrijfskritische waardestroom, een vitale overheidsdienst of een proces waarin gevoelige gegevens, publieke waarden of hoge continuïteitseisen een rol spelen. Daarom dient digitale soevereiniteit altijd proportioneel benaderd te worden.
 
 Dit betekent dat organisaties hun eisen aan autonomie, controle en beheersbaarheid in de praktijk zullen differentiëren op basis van de kritische belangen. Hoe groter de impact van verstoring, ongewenste toegang, dataverlies of lock-in, des te zwaarder de eisen die aan de architectuur moeten worden gesteld. De kritische belangen kunnen daarbij voortkomen uit operationele impact, maatschappelijke gevolgen, wettelijke verplichtingen, financiële schade, reputatierisico, afhankelijkheid van ketenpartners of effecten op bestuurlijke controle.

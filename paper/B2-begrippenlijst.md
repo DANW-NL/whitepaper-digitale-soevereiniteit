@@ -29,6 +29,7 @@ Beschermen en controleren van de virtuele ruimte van computernetwerken binnen (l
 De mate waarin een organisatie zeggenschap en feitelijke regie houdt over haar data, inclusief opslag, verwerking, toegang, gebruik, overdraagbaarheid en verwijdering.
 
 **Digitale autonomie**
+{: .page-break }
 
 Het vermogen van een organisatie om in het digitale domein zelfstandig keuzes te maken en zelf uitvoering ter hand te nemen om afhankelijkheden te verminderen wat betreft inrichting, gebruik, wijziging en vervanging van digitale middelen en om controle te houden over de verwerking, opslag en toegang tot de eigen data.
 

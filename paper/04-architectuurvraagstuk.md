@@ -12,7 +12,7 @@ Anderzijds kunnen de eraan verbonden risico’s op bestuurlijk niveau niet worde
 
 Juist de digitaalkundige architect kan de leiding van de organisatie helpen een positie in te nemen, door de risico’s per beschouwingsgebied en op alle architectuurlagen inzichtelijk te maken. Daarmee kan de organisatie zich concreet uitspreken welke mate van afhankelijkheid zij, gegeven haar publieke, maatschappelijke of bedrijfsmatige belangen, nog aanvaardbaar vindt en wanneer aanvullende maatregelen, herontwerp of bestuurlijke escalatie nodig zijn.
 
-## 4.3 Keuzes moeten bewust en consistent gemaakt worden
+## 4.3 Keuzes moeten bewust en consistent gemaakt worden{: .page-break }
 Omdat volledige onafhankelijkheid van derde partijen niet bestaat, blijven keuzes over digitale soevereiniteit altijd een risico-afweging in zich houden. Daarom dienen voorgenomen architectuurkeuzes gepaard te gaan met een risicoanalyse op digitale soevereiniteit. De op bestuurlijk niveau uitgesproken risicobereidheid ten aanzien van afhankelijkheden kan daarbij fungeren als toetssteen.
 
 Dat geldt bijvoorbeeld voor afhankelijkheid van niet-EU-jurisdicties, vendor lock-in, toegang van derde partijen tot data of beheerfuncties, het gebruik van leverancier specifieke platformdiensten of de mate waarin sleutelbeheer en identiteiten buiten de eigen regie komen te liggen. Door dit expliciet te maken, wordt digitale soevereiniteit van een abstract streven tot een navolgbaar besluitvormingskader.
