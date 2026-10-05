@@ -47,6 +47,7 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
             }
         }
     )
+
     body_html = embed_images(md.convert(full_markdown))
     toc_html = md.toc
     logo_base64 = img_to_base64(Path(logo_path))
@@ -61,7 +62,7 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
           <script>
             window.pagedjsRendered = false;
             window.PagedConfig = {
-              auto: false, // We'll trigger it manually or let it run
+              auto: true, // We'll trigger it manually or let it run
               after: () => {
                 window.pagedjsRendered = true;
               }
@@ -112,7 +113,26 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
               padding-top: 4px;
             }
             @bottom-right {
-              content: "Pagina " counter(page) " van " counter(pages);
+              content: "Pagina " counter(page);
+              font-family: "Segoe UI", sans-serif;
+              font-size: 8pt;
+              color: #666;
+              border-top: 1px solid #ddd;
+              vertical-align: top;
+              padding-top: 4px;
+            }
+          }
+
+          @page cover {
+            @top-left { content: none; }
+            @bottom-left { content: none; }
+            @bottom-right { content: none; }
+          }
+
+          /* Front matter (TOC, etc.): lowercase Roman numerals */
+          @page frontmatter {
+            @bottom-right {
+              content: "Pagina " counter(page, lower-roman);
               font-family: "Segoe UI", sans-serif;
               font-size: 8pt;
               color: #666;
@@ -127,6 +147,16 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
             font-size: 11pt;
             line-height: 1.6;
             color: #222;
+          }
+
+          .frontmatter-content {
+            page: frontmatter;
+          }
+
+          .pagedjs_page:has(#page-one) { counter-set: page 1; }
+
+          .main-content {
+            counter-reset: page 1;
           }
 
           h1, h2, h3 { color: #003366; }
@@ -152,6 +182,77 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
           img.medium { width: 75%; }
           img.small { width: 50%; }
 
+          .cover-page {
+            page: cover;
+            break-after: page;
+            min-height: 24.7cm;
+            display: flex;
+            flex-direction: column;
+            color: #003366;
+          }
+
+          .cover-content {
+            margin-top: auto;
+            margin-bottom: auto;
+          }
+
+          .cover-kicker {
+            margin: 0.6cm 0 0.6cm 0;
+            font-size: 15pt;
+            font-weight: 400;
+            color: #555;
+          }
+
+          .cover-title {
+            margin: 0;
+            color: #000;
+            font-size: 32pt;
+            font-weight: 400;
+            line-height: 1.16;
+            letter-spacing: -0.02em;
+          }
+
+          .cover-date {
+            margin: 1.25cm 0 0;
+            font-size: 16pt;
+            font-weight: 400;
+            color: #000;
+          }
+
+          .colophon-page {
+            page: colophon;
+            break-after: page;
+            min-height: 24.7cm;
+            display: flex;
+            flex-direction: column;
+            color: #222;
+          }
+
+          .colophon-page h1 {
+            margin: 0 0 1.1cm;
+            color: #003366;
+            font-size: 24pt;
+            line-height: 1.2;
+          }
+
+          .colophon-page p {
+            margin: 0 0 0.7cm;
+          }
+
+          .colophon-publication {
+            margin-top: 1.2cm;
+            padding-top: 0.8cm;
+          }
+
+          .colophon-contact {
+            margin-top: auto;
+            padding-top: 0.8cm;
+          }
+
+          .colophon-contact p {
+            margin-bottom: 0.25cm;
+          }
+    
           /* --- Inhoudsopgave (TOC) with Page Numbers & Dot Leaders --- */
           .toc {
             margin-bottom: 2rem;
@@ -213,8 +314,69 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
         </style>
         </head>
         <body>
-          {{ toc }}
-          <div class="page-break"></div>
+          <section class="cover-page">
+            <div class="cover-content">
+              <h1 class="cover-title text-center">
+                Een Enterprise Architectuur aanpak voor Digitale Soevereiniteit
+              </h1>
+              <p class="cover-kicker text-center">Een whitepaper van het Digital Architects NetWork</p>
+              <p class="cover-date text-center">Oktober 2026</p>
+            </div>
+          </section>
+
+          <!-- Colophon -->
+          <div class="frontmatter-content">
+            <div class="colophon-page frontmatter-content">
+              <div>
+                <p>© Copyright 2026, Digital Architects NetWork</p>
+                <p>
+                  Deze publicatie is, tenzij anders vermeld, beschikbaar onder de licentie
+                  Creative Commons Naamsvermelding 4.0 Internationaal (CC BY 4.0).
+                </p>
+
+                <p>
+                  Hergebruik, verspreiding en bewerking zijn toegestaan, mits de volgende
+                  bronvermelding wordt opgenomen:
+                  <em>Digital Architects NetWork, Een enterprise-architectuuraanpak voor
+                  digitale soevereiniteit, versie 1, 2026.</em>
+                </p>
+
+                <p>
+                  Bij bewerkingen moet worden aangegeven dat het oorspronkelijke werk is
+                  gewijzigd. Het gebruik van de naam of het logo van DANW mag niet de indruk
+                  wekken dat DANW de bewerking of de gebruiker daarvan onderschrijft.
+                </p>
+
+                <div class="colophon-publication">
+                  <p>
+                    <strong>
+                      Digital Architects NetWork, Een Enterprise Architectuur aanpak voor
+                      Digitale Soevereiniteit
+                    </strong>
+                  </p>
+                  <p><strong>Versie 1.0 — Oktober 2026</strong></p>
+                  <p>Gepubliceerd door Digital Architects NetWork, oktober 2026.</p>
+                </div>
+              </div>
+
+              <div class="colophon-contact">
+                <p>Opmerkingen met betrekking tot het materiaal in dit document kunnen worden ingediend bij:</p>
+                <p>
+                  Digital Architects NetWork<br>
+                  Transistorstraat 71-M<br>
+                  1322 CK Almere
+                </p>
+                <p>
+                  of per e-mail aan:<br>
+                  <a href="mailto:info@danw.nl">info@danw.nl</a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="frontmatter-content">
+            {{ toc }}
+          </div>
+          <div id="page-one"></div>
           {{ body }}
         </body>
       </html>
