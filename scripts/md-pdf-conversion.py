@@ -325,7 +325,7 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
           </section>
 
           <!-- Colophon -->
-          <div class="frontmatter-content">
+          <div>
             <div class="colophon-page frontmatter-content">
               <div>
                 <p>© Copyright 2026, Digital Architects NetWork</p>
@@ -373,10 +373,8 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
               </div>
             </div>
           </div>
-          <div class="frontmatter-content">
-            {{ toc }}
-          </div>
-          <div id="page-one"></div>
+          {{ toc }}
+          <div class="page-break"></div>
           {{ body }}
         </body>
       </html>
