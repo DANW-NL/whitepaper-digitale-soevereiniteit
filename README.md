@@ -1,5 +1,5 @@
 # whitepaper-digitale-soevereiniteit
-Open review and development of the DANW whitepaper on digital sovereignty
+Open review and development of the DANW whitepaper on digital sovereignty. Versioned papers can be found in [releases](./releases)
 
 ## Writing instructions
 Normal markdown instructions apply. However, there are a couple of additional tweaks you can do, that work via the CSS that is used in the script.

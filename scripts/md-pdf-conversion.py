@@ -5,6 +5,8 @@ from jinja2 import Template
 from playwright.sync_api import sync_playwright
 import mimetypes
 import re
+import locale
+import datetime
 
 def img_to_base64(image_path: Path) -> str:
     """Read a local image file and return it as a base64-encoded data URI."""
@@ -32,7 +34,7 @@ def embed_images(html: str) -> str:
 
     return re.sub(r'src=["\']([^"\']+)["\']', repl, html)
 
-def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, logo_path: str, template_path: str = "scripts/template.html"):
+def compile_whitepaper(file_list: list[str], version: str, output_pdf: str, doc_title: str, logo_path: str, template_path: str = "scripts/template.html"):
     """Compile Markdown source chapters into a paginated PDF using Paged.js and Playwright."""
     # 1. Merge Markdown: concatenate chapter files with page breaks in between
     merged_md_parts = []
@@ -75,13 +77,20 @@ def compile_whitepaper(file_list: list[str], output_pdf: str, doc_title: str, lo
     # Base href needed by the browser to resolve relative URLs
     base_href = Path.cwd().resolve().as_uri() + "/"
 
+    locale.setlocale(locale.LC_TIME, 'nl_NL.UTF-8')
+    month = datetime.datetime.now().strftime('%B')
+    year = datetime.datetime.now().strftime('%Y')
+
     # Populate Jinja2 placeholders (TOC, body, metadata, encoded logo)
     full_html = Template(html_template).render(
         toc=toc_html,
         body=body_html,
         doc_title=doc_title,
         logo=logo_base64,
-        base_href=base_href
+        base_href=base_href,
+        month=month,
+        year=year,
+        version=version
     )
 
     # Save intermediate HTML output for debugging and previewing
@@ -126,6 +135,7 @@ if __name__ == '__main__':
 
     compile_whitepaper(
         file_list=chapter_files,
+        version="1.0",
         output_pdf="output/Een Enterprise Architectuur aanpak voor Digitale Soevereiniteit.pdf",
         doc_title="Een Enterprise Architectuur aanpak voor Digitale Soevereiniteit",
         logo_path="paper/images/DANW-logo-CMYK-compleet-LA.png",
