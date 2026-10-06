@@ -55,6 +55,7 @@ Het vermogen van systemen, diensten en organisaties om op basis van open of bree
 De afhankelijkheid die ontstaat doordat dienstverlening, data of operationele controle mede onderworpen is aan wet- en regelgeving, rechtspraak of overheidsingrijpen buiten de gewenste of veronderstelde jurisdictie.
 
 **Kritieke afhankelijkheid**
+{: .page-break }
 
 Een afhankelijkheid waarvan verstoring, wijziging of beëindiging leidt tot onaanvaardbare impact op bedrijfskritische processen, continuïteit, bestuurlijke controle, compliance, veiligheid of maatschappelijke taakuitvoering.
 
@@ -85,6 +86,7 @@ Ook te omschrijven als risicohouding voor soevereiniteit.
 De expliciet vastgestelde mate van risico en afhankelijkheid die een organisatie, voor een bepaalde context of waardestroom, bereid is te accepteren. Dit vormt het toetsingskader voor architectuurbesluiten, uitzonderingen en prioritering van maatregelen.
 
 **Sourcing**
+{: .page-break }
 
 De wijze waarop een organisatie digitale capabilities, diensten of middelen verwerft, organiseert en aanstuurt, bijvoorbeeld via eigen uitvoering, uitbesteding, gezamenlijke inkoop, cloudafname of platformgebruik. Sourcing keuzes hebben direct effect op afhankelijkheid en soevereiniteit.
 

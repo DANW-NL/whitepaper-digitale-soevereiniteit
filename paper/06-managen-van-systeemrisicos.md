@@ -53,6 +53,7 @@ In deze fase worden de voorwaarden ingevuld om de rest van de risicobeheersing g
 In relatie tot digitale soevereiniteit betekent dit, dat de stakeholders en te vermijden bedreigingen voor dit onderwerp expliciet moeten worden bepaald. Ook dient de scope en het doel van mogelijke initiatieven op voorhand afgestemd te zijn, zodat er in latere fasen draagvlak voor inzet van bedrijfsmiddelen is. Het is bij een uitbreiding van de beschouwing van risicotypen immers niet vanzelfsprekend, dat bestaande stakeholders een uitbreiding van hun verantwoordelijkheden zullen accepteren.
 
 Hulpmiddelen:
+{: .page-break }
 
 * Model voor risicotolerantie – input voor de in deze fase te bepalen risicotolerantie
 * Context Model – output van deze fase

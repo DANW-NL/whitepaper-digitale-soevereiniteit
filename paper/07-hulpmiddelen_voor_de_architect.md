@@ -49,7 +49,7 @@ Hoge kans én hoge impact risico’s vragen directe actie, terwijl lage kans en 
 
 ![Figuur 3 - Risico evaluatie matrix](images/risico-evaluatie.png){: .small }
 
-## 7.9 Self-assessment (‘radar’)
+## 7.9 Self-assessment (‘radar’) {: .page-break }
 Een self-assessment is een passend evaluatie-instrument om te beoordelen in hoeverre risicobeheersmaatregelen effectief zijn in de bestaande situatie, versus in hoeverre dat in de doelsituatie gewenst is.
 
 Een voorbeeld van een self-assessment vragenlijst is opgenomen in bijlage 1 (werkblad praktische instrumenten), op het tabblad Self-assessment. Deze lijst dient beschouwd te worden als een eerste aanzet, die aansluit bij de risicocategorieën van het Cloud Sovereignty Framework van de EU, maar waarbij het DANW-model breder wordt toegepast dan alleen cloud.
@@ -69,7 +69,7 @@ Voor iedere organisatie zijn het vertrekpunt, de risico's en doelstellingen ande
 
 Waar externe partijen betrokken zijn, is bij de maatregelen steeds verondersteld dat ze gevestigd zullen zijn in de eigen, relevante jurisdictie (Nederland, de EU, of de niet-EU landen die wel tot de EER behoren). Is dat niet het geval, dan dient de effectiviteit van maatregelen zelf beoordeeld te worden.
 
-### 7.10.2 Maatregeleffectiviteit {: .page-break }
+### 7.10.2 Maatregeleffectiviteit
 Risicomethodieken hanteren normaliter een volgende maatregeltypering:
 
 * Vermijden (ISO 27005: “Avoid”): voortzetting van de bestaande situatie wordt niet geaccepteerd, er wordt een nieuwe situatie gecreëerd;
