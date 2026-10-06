@@ -1,4 +1,4 @@
-# 7 - Hulpmiddelen voor de architect
+# 7 Hulpmiddelen voor de architect
 
 ## 7.1 Dreigingenbibliotheek
 Een overzicht van potentiële dreigingen is opgenomen in bijlage 1 (werkblad praktische instrumenten), op het tabblad Dreigingen.

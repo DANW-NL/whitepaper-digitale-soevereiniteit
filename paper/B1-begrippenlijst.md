@@ -1,4 +1,4 @@
-# 11 Begrippenlijst
+# Bijlage 1 Begrippenlijst
 
 **Afhankelijkheid**
 

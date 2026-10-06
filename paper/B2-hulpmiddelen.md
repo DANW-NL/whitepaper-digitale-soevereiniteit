@@ -1,4 +1,4 @@
-# 12 Bijbehorende hulpmiddelen
+# Bijlage 2 Bijbehorende hulpmiddelen
 
 Bij deze whitepaper horen de volgende hulpmiddelen:
 

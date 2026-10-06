@@ -119,9 +119,9 @@ if __name__ == '__main__':
         "paper/07-hulpmiddelen_voor_de_architect.md",
         "paper/08-governance_rollen_verantwoordelijkheden.md",
         "paper/09-conclusies_en_aanbevelingen.md",
-        "paper/B1-gebruikte_bronnen_en_inspiratiebronnen.md",
-        "paper/B2-begrippenlijst.md",
-        "paper/B3-hulpmiddelen.md"
+        "paper/B1-begrippenlijst.md",
+        "paper/B2-hulpmiddelen.md",
+        "paper/B3-gebruikte_bronnen_en_inspiratiebronnen.md"
     ]
 
     compile_whitepaper(

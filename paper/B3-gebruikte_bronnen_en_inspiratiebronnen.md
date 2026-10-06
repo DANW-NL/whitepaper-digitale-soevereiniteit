@@ -1,4 +1,4 @@
-# Bijlage 1 - Gebruikte bronnen en inspiratiebronnen
+# Bijlage 3 Literatuur en inspiratiebronnen
 | Nr | Omschrijving                                                                                                                                             |
 |----|----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 1  | European Commission, Directorate-General for Digital Services. Cloud Sovereignty Framework, Version 1.2.1 – October 2025. European Commission, 2025.     |
