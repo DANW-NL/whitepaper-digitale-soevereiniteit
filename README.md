@@ -49,4 +49,5 @@ Please use annotated tags, for example:
 
 ```
 git tag -a v1.0 -m "my version 1.4"
+git push origin v1.0
 ```
