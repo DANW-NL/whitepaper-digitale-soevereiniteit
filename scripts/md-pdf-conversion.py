@@ -126,8 +126,8 @@ if __name__ == '__main__':
 
     compile_whitepaper(
         file_list=chapter_files,
-        output_pdf="output/Een Enterprise Architectuur aanpak voor DIgitale Soevereiniteit.pdf",
-        doc_title="Een Enterprise Architectuur aanpak voor DIgitale Soevereiniteit",
+        output_pdf="output/Een Enterprise Architectuur aanpak voor Digitale Soevereiniteit.pdf",
+        doc_title="Een Enterprise Architectuur aanpak voor Digitale Soevereiniteit",
         logo_path="paper/images/DANW-logo-CMYK-compleet-LA.png",
         template_path="scripts/template.html"
     )
