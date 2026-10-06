@@ -40,3 +40,13 @@ scripts/md-pdf-conversion.py
 ```
 
 The output will be written in the `output` folder. This folder is ignored by Git. Specific releases of the paper will be put in a dedicated folder.
+
+## Tagging versions
+
+Whenever we feel that the paper reaches a certain worthwhile point in it's lifecycle, it will be tagged.
+
+Please use annotated tags, for example:
+
+```
+git tag -a v1.0 -m "my version 1.4"
+```
